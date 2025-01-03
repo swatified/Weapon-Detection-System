@@ -4,12 +4,28 @@
 <div class="max-w-4xl mx-auto">
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-xl font-semibold mb-4">Live Detection Feed</h2>
-        <div class="relative aspect-video bg-black rounded-lg overflow-hidden">
-            <img src="{{ url_for('video_feed') }}" alt="Video feed" class="absolute inset-0 w-full h-full object-contain">
+        
+        <!-- Video Feed Container -->
+        <div class="relative w-full h-[480px] bg-black rounded-lg overflow-hidden" id="video-container">
+            <img src="{{ url_for('video_feed') }}" 
+                 alt="Video feed" 
+                 class="absolute inset-0 w-full h-full object-contain"
+                 onerror="handleVideoError(this)">
         </div>
+
+        <!-- Status Display -->
         <div class="mt-4">
-            <p class="text-gray-600">Status: <span class="text-green-600 font-semibold">Active</span></p>
+            <p class="text-gray-600">Status: 
+                <span id="status-text" class="text-green-600 font-semibold">Active</span>
+            </p>
         </div>
     </div>
 </div>
+
+<script>
+function handleVideoError(img) {
+    document.getElementById('status-text').textContent = 'Error';
+    document.getElementById('status-text').className = 'text-red-600 font-semibold';
+}
+</script>
 {% endblock %}
